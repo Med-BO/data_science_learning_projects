@@ -23,5 +23,15 @@ players_names_and_pace[' pace'] = players_names_and_pace[' pace'].astype(int)
 # Sorting the pace values in descending order
 players_names_and_pace = players_names_and_pace.sort_values(by=' pace', ascending = False)
 
-# Displaying the top 10 fastest players in FIFA 22
-print(players_names_and_pace.iloc[0:10])
+# Top 10 fastest players in FIFA 22
+players_names_and_pace.iloc[0:10]
+
+# Adding a column that contains the average value of "defending" + "pace" + "height"
+# This will serve as in indicator for how good a defender is 
+
+defenders = fifa_players[fifa_players[' position'] == ' D']
+
+for index, row in defenders.iterrows():
+    average_defence = (int(row[' defending']) + int(row[' pace']) + int(row[' height'])) / 3
+    
+    defenders.loc[index, ['average_defence']] = average_defence
